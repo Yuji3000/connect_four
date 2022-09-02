@@ -39,5 +39,6 @@ attr_reader :cells
         #cell[1] means 
       end
     @cells = cell_arr.to_h
+
   end
 end
