@@ -9,16 +9,18 @@ class Game
   end
 
   def start
-
-    loop do
-      p "Pick column A to G to place a chip"
-      given = gets.chomp.upcase
-      #  if ("A..G").include?(given)
-      binding.pry
+    until winner == true
+    
+      loop do
+        p "Pick column A to G to place a chip"
+        given = gets.chomp
         @board.move(given)
         @board.render_board
-      break
+      end
     end
   end
 
+  def winner
+    false
+  end
 end
