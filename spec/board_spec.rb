@@ -20,9 +20,10 @@ RSpec.describe Board do
       # expect(board.build_board.keys[2]).to eq(["a3", "b3", "c3", "d3", "e3", "f3", "g3"])
     end
     
-    xit 'can render a new board' do 
+    it 'can render a new board' do 
       board = Board.new
       # player = Player.new
+      board.render_board
       expect(board.render_board).to eq(".")
       # expect(board.render_board.values[1]).to eq[[".", ".", ".", ".", ".", ".", "."]]
       # expect(board.render_board.values[2]).to eq[[".", ".", ".", ".", ".", ".", "."]]
@@ -32,7 +33,6 @@ RSpec.describe Board do
       # expect(board.render_board.values[5]).to eq[["X", ".", ".", "X", ".", ".", "."]]
     end
 
-  ## better in game class?
     it 'can change key values based on player input' do 
       board = Board.new
       # expect(board.render_board).to eq()

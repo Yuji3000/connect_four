@@ -1,19 +1,24 @@
 require 'pry'
 
 class Game
-  def initialize(player)
-    @player = player
+  def initialize
+    # @player1 = Player.new
+    # @computer = Player.new
+    @board = Board.new
     
   end
 
-  def move(given)
-    cell_arr = @cells.sort.reverse
-    cell_arr.find do |cell| 
-      if cell[0].include?(given) && cell[1] == '.'
-        cell[1] = 'X' 
-        #cell[1] means 
-      end
-    @cells = cell_arr.to_h
+  def start
+
+    loop do
+      p "Pick column A to G to place a chip"
+      given = gets.chomp.upcase
+      #  if ("A..G").include?(given)
+      binding.pry
+        @board.move(given)
+        @board.render_board
+      break
+    end
   end
 
 end
