@@ -35,4 +35,8 @@ RSpec.describe Board do
     expect(board.move("a")).to include("a3" => "X")
   end
   
+  it 'tests computer move'do
+    board = Board.new
+    expect(board.computer_move).to eq(a)
+  end
 end

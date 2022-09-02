@@ -15,6 +15,7 @@ class Game
         p "Pick column A to G to place a chip"
         given = gets.chomp
         @board.move(given)
+        @board.computer_move
         @board.render_board
       end
     end
