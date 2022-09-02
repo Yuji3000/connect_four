@@ -2,7 +2,7 @@ require 'pry'
 class Board
 
 attr_reader :cells
-  update
+  # update
   def initialize
     @numbers = (1..6).to_a
     @letters = ('a'..'g').to_a
@@ -14,6 +14,7 @@ attr_reader :cells
     @numbers.each do |number|
       @letters.each do |letter|
         @cells["#{letter}#{number}"] = ('.')
+        
       end
     end.reverse
   end
@@ -29,13 +30,17 @@ attr_reader :cells
     print render + "\n"
   end
   
-  def render_move(given)
-    cell_arr = @cells.sort.reverse
-    cell_arr.find do |cell| 
-        cell[1] = 'X' if cell[0].include?(given) && cell[1] == '.'
-      end
-    @cells = cell_arr.to_h
-  end
+
+
+
+
+  # def render_move(given)
+  #   cell_arr = @cells.sort.reverse
+  #   cell_arr.find do |cell| 
+  #       cell[1] = 'X' if cell[0].include?(given) && cell[1] == '.'
+  #     end
+  #   @cells = cell_arr.to_h
+  # end
   
 
 end

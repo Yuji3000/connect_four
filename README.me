@@ -1,0 +1,56 @@
+Connect Four Project Interaction pattern
+
+Class
+  Board
+-creates board cells
+-renders board
+
+-Is created by cells. Can accept “X” or  “O”  
+(default/empty space  = “.”)
+
+Winner Method
+-recognizes 4 chips in a row (cells with x or o)  in a row horizontal, vertical or diagonal 
+
+Vertical win method
+Array.transpose will return a new array from
+ index[0] of nestled(?) arrays. Then check index # for value
+		If 4 in a row == win
+			How to check for 4 in a row, within an array	
+Horizontal win method
+		How to check horizontal win?
+	4 in a row within an array == win
+(maybe use vertical win array method above)
+	
+Diagonal win method
+How to check for diagonal win?
+			?
+Draw method
+If board is full && no win then game is draw
+
+		Cell class?(maybe in board class) + tests
+		-is cell open? (“.”) or taken (“x” or “o”)
+		-Chip needs to go in a column
+-Placement. Chip needs to go in lowest cell
+			Chip cannot float
+
+
+			
+
+  Player
+-Player 1(user)
+Player class -Selecting column a-g input only
+	Other than A-G is invalid input
+- Player2/computer(computer generated play that is randomized)
+
+
+  Game
+	
+42 =max number of rounds/plays 
+
+Other necessary messages + output
+	“You won!” etc?
+	
+	
+Runner
+	-Prints board on terminal
+
