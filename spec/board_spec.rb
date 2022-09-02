@@ -37,6 +37,7 @@ RSpec.describe Board do
   
   it 'tests computer move'do
     board = Board.new
-    expect(board.computer_move).to eq(a)
+    expect(board.computer_move).to be_a Hash
+    expect(board.computer_move.count).to eq 42
   end
 end
