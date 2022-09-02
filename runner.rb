@@ -7,9 +7,8 @@ p "Welcome to Connect Four!"
 p "press p to play"
 
     input = gets.chomp
-    if input == "p"
+    if input.downcase == "p"
       board = Board.new
-      # binding.pry
       board.render_board
     end
 
