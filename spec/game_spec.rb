@@ -12,10 +12,10 @@ describe '#initialize' do
   describe '#start' do
     it 'starts the game' do
       game = Game.new
-      
-
     end
   end
+
+  
 end
 
 
