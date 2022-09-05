@@ -19,7 +19,7 @@ class Game
       given = gets.chomp 
       if [*"a".."g"].include?(given) == true 
         @board.move(given)
-        @board.render_board 
+        # @board.render_board 
         @board.computer_move
         @board.render_board 
       elsif
