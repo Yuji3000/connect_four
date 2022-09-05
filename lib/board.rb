@@ -41,6 +41,14 @@ attr_reader :cells
 
   end
 
+  # def board_full
+  #   @cells.values.any? do |cell|
+  #     cell == "."
+  #   end
+  #   return @cells.values
+  #   p "End Game"
+  # end
+
   def computer_move #computer player
     computer_choice = [*"a".."g"].sample
     cell_arr = @cells.sort.reverse

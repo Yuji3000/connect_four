@@ -40,4 +40,15 @@ RSpec.describe Board do
     expect(board.computer_move).to be_a Hash
     expect(board.computer_move.count).to eq 42
   end
+
+  describe '#board_full' do
+    it 'stops the game when board is full' do
+      board = Board.new
+      board.board_full
+      expect(board.cells.values).not_to eq(".")
+      # expect when board is full game will stop
+      # no valid columns available; i.e. the game board is full. 
+      # In this case, the game is a draw, an endgame condition.
+    end
+  end
 end
