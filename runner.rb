@@ -1,15 +1,19 @@
+
+
 require './lib/board'
 require './lib/game'
 require './lib/player'
 require 'pry'
 
-p "Welcome to Connect Four!"
-p "press p to play"
+p "Welcome to CONNECT FOUR"
+p "Enter p to play. Enter q to quit."
 
     input = gets.chomp
-    input.downcase == "p"
-    board = Board.new
-    board.render_board
-   
-    game = Game.new
-    game.start
+    if input.downcase == "p"
+        board = Board.new
+        board.render_board
+        game = Game.new
+        game.start
+    end
+
+  

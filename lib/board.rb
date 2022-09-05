@@ -56,27 +56,16 @@ attr_reader :cells, :count
       # require 'pry'; binding.pry
   
 
-  # def computer_move(computer_given) #computer player
-  #   cell_arr = @cells.sort.reverse
-  #   cell_arr.find do |cell| 
-  #     cell[1] = 'O' if cell[0].include?(computer_given) && cell[1] == '.'
-  #     end
-  #   end
-  #   @cells = cell_arr.to_h
-  # end
-  
+  def board_empty?
+    @cells.values.any?('.')
+  end
 
-  def player_vertical_win(given)
-    until count == 4
-    require 'pry'; binding.pry
-      count = 0
-      cell_arr = @cells.sort.reverse
-      cell_arr.each do |cell|
-        if cell[1] == "0" && cell[0].include?(given)
-        count =+ 1
-        else 
-        count = 0
-        end
+  def computer_move #computer player
+    computer_choice = [*"a".."g"].sample
+    cell_arr = @cells.sort.reverse
+    cell_arr.find do |cell| 
+      # binding.pry
+      cell[1] = 'O' if cell[0].include?(computer_choice) && cell[1] == '.'
       end
     end
   end

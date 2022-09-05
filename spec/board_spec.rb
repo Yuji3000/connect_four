@@ -33,6 +33,7 @@ RSpec.describe Board do
     # expect(board.move("a")).to include("a3" => "X")
   end
   
+<<<<<<< HEAD
   it 'can determin winner' do 
     board = Board.new
     board.move("a")
@@ -40,5 +41,22 @@ RSpec.describe Board do
     board.move("a")
     board.move("a")
     expect(board.player_vertical_win("a")).to eq true
+=======
+  it 'tests computer move'do
+    board = Board.new
+    expect(board.computer_move).to be_a Hash
+    expect(board.computer_move.count).to eq 42
+  end
+
+  describe '#board_full' do
+    it 'stops the game when board is full' do
+      board = Board.new
+      board.board_full
+      expect(board.cells.values).not_to eq(".")
+      # expect when board is full game will stop
+      # no valid columns available; i.e. the game board is full. 
+      # In this case, the game is a draw, an endgame condition.
+    end
+>>>>>>> a20e349acce97492d8177710480def6be88a59aa
   end
 end
