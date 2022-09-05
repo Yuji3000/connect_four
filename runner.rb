@@ -9,9 +9,10 @@ p "Welcome to Connect Four!"
 p "press p to play"
 
     input = gets.chomp
-    input.downcase == "p"
-    board = Board.new
-    board.render_board
+    if input.downcase == "p"
+        board = Board.new
+        board.render_board
    
-    game = Game.new
-    game.start
+        game = Game.new
+        game.start
+    end

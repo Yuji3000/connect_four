@@ -41,13 +41,9 @@ attr_reader :cells
 
   end
 
-  # def board_full
-  #   @cells.values.any? do |cell|
-  #     cell == "."
-  #   end
-  #   return @cells.values
-  #   p "End Game"
-  # end
+  def board_empty?
+    @cells.values.any?('.')
+  end
 
   def computer_move #computer player
     computer_choice = [*"a".."g"].sample
