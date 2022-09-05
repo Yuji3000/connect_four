@@ -14,6 +14,12 @@ p "Enter p to play. Enter q to quit."
         board.render_board
         game = Game.new
         game.start
+    elsif input.downcase == "q"
+        abort("BYE!")
     end
 
-  
+   
+    # input = gets.chomp
+    # if input.downcase == "q"
+    #     abort("THANK YOU FOR PLAYING!")
+    # end
