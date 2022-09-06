@@ -11,7 +11,8 @@ attr_reader :cells, :count
     count = 0
   end 
   
-  def board_cells
+
+def board_cells
     @numbers.each do |number|
       @letters.each do |letter|
         @cells["#{letter}#{number}"] = ('.')
@@ -28,10 +29,11 @@ attr_reader :cells, :count
     @cells["a5"] + @cells["b5"] + @cells["c5"] + @cells["d5"] + @cells["e5"] + @cells["f5"] + @cells["g5"] + " \n" +
     @cells["a6"] + @cells["b6"] + @cells["c6"] + @cells["d6"] + @cells["e6"] + @cells["f6"] + @cells["g6"]
     print render + "\n" 
-    # return render
+    return render
   end
   
 
+  
   def move(given) #human player
     cell_arr = @cells.sort.reverse    
     cell_arr.find do |cell| 
@@ -40,29 +42,29 @@ attr_reader :cells, :count
     @cells = cell_arr.to_h
   end
 
-  def compare_column_to_selection(given)
-    @letters.find do |letter|
-      letter == given  
-      end
+  # def compare_column_to_selection(given)
+  #   @letters.find do |letter|
+  #     letter == given  
+  #     end
+  # end
+  def column_exists?(given)
+    [*"a".."g"].include?(given) 
+  end
+  
+  def valid_placement?(given)
+    column_exists?(given)
+    column_available?(given)
   end
 
+
   def column_available?(given)
-    column_check = compare_column_to_selection(given)
-    if "a1".include?(column_check) && @cells["a1"] != "."
-      p "PICK ANOTHER COLUMN!"
-    elsif "b1".include?(column_check) && @cells["b1"] != "."
-      p "PICK ANOTHER COLUMN!"
-    elsif "c1".include?(column_check) && @cells["c1"] != "."
-      p "PICK ANOTHER COLUMN!"
-    elsif "d1".include?(column_check) && @cells["d1"] != "."
-      p "PICK ANOTHER COLUMN!"
-    elsif "e1".include?(column_check) && @cells["e1"] != "."
-      p "PICK ANOTHER COLUMN!"
-    elsif "f1".include?(column_check) && @cells["f1"] != "."
-      p "PICK ANOTHER COLUMN!"
-    elsif "g1".include?(column_check) && @cells["g1"] != "."
-      p "PICK ANOTHER COLUMN!"
-   end
+    "a1".include?(given) && @cells["a1"] == "." ||
+    "b1".include?(given) && @cells["b1"] == "." ||
+    "c1".include?(given) && @cells["c1"] == "." ||
+    "d1".include?(given) && @cells["d1"] == "." ||
+    "e1".include?(given) && @cells["e1"] == "." ||
+    "f1".include?(given) && @cells["f1"] == "." ||
+    "g1".include?(given) && @cells["g1"] == "."
   end
   
   def board_empty?
@@ -78,16 +80,23 @@ attr_reader :cells, :count
     @cells = cell_arr.to_h
   end
 
+  def winner
+    @cells.sort.each do |cell|
+      if cell[0][0] != unique && cell[0][1] == count+1 && cell[1] == "x" 
+        binding.pry
+        puts winner
+      end
+    end
+  end
 
 
 end
 
 # end
 # player_cells = @cells.find_all {|k, v|  k.include?("a") && v == "X"
-
-# @cells.sort.each do |cell|
-#   cell[0][0] != unique && cell[0][1] == count+1 && cell[1] == "x" #
-#   cell[0][0] == letter_count += 1  && cell[0][1] == count+1 && cell[1] == "x" #
+    
+    
+    # cell[0][0] == letter_count += 1  && cell[0][1] == count+1 && cell[1] == "x" 
 
   
   # @cells.sort[0][0][0] #letter 
