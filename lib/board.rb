@@ -42,7 +42,7 @@ attr_reader :cells, :count
 
   def compare_column_to_selection(given)
     @letters.find do |letter|
-      letter.upcase == given.upcase  
+      letter == given  
       end
   end
 

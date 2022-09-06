@@ -12,7 +12,7 @@ class Game
 
   def start
     while @board.board_empty? == true #&& winner == false
-      puts "==========Connect Four=========="
+    puts "==========Connect Four=========="
       @board.render_board
       p "Pick column A to G to place a chip"
       given = gets.chomp.downcase
@@ -22,8 +22,9 @@ class Game
       end 
       if [*"a".."g"].include?(given) == true 
         @board.move(given)
-        @board.computer_move
         @board.column_available?(given)
+        @board.computer_move
+        
       end    
     end
          
