@@ -10,7 +10,6 @@ RSpec.describe Board do
 
     it 'can create cells' do 
       board = Board.new
-      expect(board.board_cells.count).to eq(6) 
       expect(board.cells.keys[41]).to eq("g6") 
       expect(board.cells.values[41]).to eq(".") 
       expect(board.cells.values[42]).to eq(nil) 
@@ -90,7 +89,7 @@ RSpec.describe Board do
       board.player_move("a")
       board.player_move("a")
 
-      expect(board.player_win).to eq 1
+      expect(board.player_win?).to eq true
     end
   end 
 end 

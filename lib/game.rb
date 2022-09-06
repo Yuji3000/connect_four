@@ -10,16 +10,16 @@ class Game
   def start
     while @board.board_empty? == true #&& winner == false
       puts "==========Connect Four=========="
-      @board.render_board
+      puts @board.render_board
       p "Pick column A to G to place a chip"
       given = gets.chomp.downcase
       
-      until @board.valid_placement?(given) == true
+      until @board.valid_placement(given) == true
         puts 'INVALID COLUMN. TRY AGAIN.'
         given = gets.chomp.downcase
       end 
       
-      if @board.valid_placement?(given) == true
+      if @board.valid_placement(given) == true
           @board.player_move(given)
           @board.computer_move
         end 
