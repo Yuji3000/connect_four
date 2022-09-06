@@ -51,13 +51,13 @@ RSpec.describe Board do
       # In this case, the game is a draw, an endgame condition.
     end
 
-    it 'verifies the column exists' do
+    xit 'verifies the column exists' do
       board = Board.new      
       expect(board.column_exits?('a')).to eq true
       expect(board.column_exits?('s')).to eq false
     end
 
-    it 'validates weather the column is not full' do
+    xit 'validates weather the column is not full' do
       board = Board.new      
       3.times do
       board.player_move("a")
@@ -68,7 +68,7 @@ RSpec.describe Board do
       expect(board.column_full('a')).to eq 1
     end
 
-    it 'can verify a valid placement on baord' do
+    xit 'can verify a valid placement on baord' do
       board = Board.new      
 
       5.times do
@@ -89,7 +89,20 @@ RSpec.describe Board do
       board.player_move("a")
       board.player_move("a")
 
-      expect(board.player_win?).to eq true
+      # expect(board.player_win?).to eq true
+    end
+
+    it 'can identify wins' do
+      board = Board.new
+
+      expect(board.vertical_win?('a')).to eq false
+      
+      4.times do
+      board.player_move("a")
+      end 
+  
+      expect(board.vertical_win?('a')).to eq true
+
     end
   end 
 end 
