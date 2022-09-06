@@ -17,6 +17,9 @@ RSpec.describe Board do
 
   end
   
+    # it'board cells
+    # expect board_cells
+
   it 'can render a new board' do 
     board = Board.new
     expect(board.render_board).to eq(
@@ -42,11 +45,20 @@ RSpec.describe Board do
   describe '#board_full' do
     it 'stops the game when board is full' do
       board = Board.new
-      board.board_full
+      board.board_empty?
       expect(board.cells.values).not_to eq(".")
       # expect when board is full game will stop
       # no valid columns available; i.e. the game board is full. 
       # In this case, the game is a draw, an endgame condition.
     end
   end
+    
+  # describe '#column_available?' do
+  #   it 'checks if a column is available to place piece into' do
+  #     board = Board.new
+  #     board.move(a)
+  #     expect(column_available?(a)).to eq (true)
+
+  #   end
+  # end
 end

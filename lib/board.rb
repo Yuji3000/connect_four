@@ -11,7 +11,8 @@ attr_reader :cells, :count
     count = 0
   end 
   
-  def board_cells
+
+def board_cells
     @numbers.each do |number|
       @letters.each do |letter|
         @cells["#{letter}#{number}"] = ('.')
@@ -32,14 +33,36 @@ attr_reader :cells, :count
   end
   
 
+  
   def move(given) #human player
     cell_arr = @cells.sort.reverse    
     cell_arr.find do |cell| 
       cell[1] = 'X' if cell[0].include?(given) && cell[1] == '.'
       end
     @cells = cell_arr.to_h
-  end
 
+  end
+  
+  def column_exists?(given)
+    [*"a".."g"].include?(given) 
+  end
+  
+  def valid_placement?(given)
+    column_exists?(given)
+    column_available?(given)
+  end 
+
+
+  def column_available?(given)
+    "a1".include?(given) && @cells["a1"] == "." ||
+    "b1".include?(given) && @cells["b1"] == "." ||
+    "c1".include?(given) && @cells["c1"] == "." ||
+    "d1".include?(given) && @cells["d1"] == "." ||
+    "e1".include?(given) && @cells["e1"] == "." ||
+    "f1".include?(given) && @cells["f1"] == "." ||
+    "g1".include?(given) && @cells["g1"] == "."
+  end
+  
   def board_empty?
     @cells.values.any?('.')
   end
@@ -53,6 +76,15 @@ attr_reader :cells, :count
     @cells = cell_arr.to_h
   end
 
+  def winner
+    @cells.sort.each do |cell|
+      if cell[0][0] != unique && cell[0][1] == count+1 && cell[1] == "x" 
+        binding.pry
+        puts winner
+      end
+    end
+  end
+
 
 
 end
@@ -60,9 +92,11 @@ end
 # end
 # player_cells = @cells.find_all {|k, v|  k.include?("a") && v == "X"
 
+
 # @cells.sort.each do |cell|
 #   cell[0][0] != unique && cell[0][1] == count+1 && cell[1] == "x" #
 #   cell[0][0] == letter_count += 1  && cell[0][1] == count+1 && cell[1] == "x" #
+
 
   
   # @cells.sort[0][0][0] #letter 
@@ -71,4 +105,6 @@ end
   # @cells do |cell|q
   #   @letters.each do |letter|
   #   shovel frist 6 elements into array
+
   # check 4* cells[1] for X or o 
+
