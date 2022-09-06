@@ -92,17 +92,39 @@ RSpec.describe Board do
       # expect(board.player_win?).to eq true
     end
 
-    it 'can identify wins' do
+    it 'can identify wins vertically' do
       board = Board.new
-
       expect(board.vertical_win?('a')).to eq false
-      
       4.times do
       board.player_move("a")
       end 
-  
       expect(board.vertical_win?('a')).to eq true
-
     end
+
+    it 'can identify wins horizontally' do
+      board = Board.new
+      expect(board.horizontal_win?).to eq false
+  
+      board.player_move("d")
+      board.player_move("e")
+      board.player_move("f")
+      board.player_move("g")
+ 
+      expect(board.horizontal_win?).to eq true
+    end
+
+    it 'can identify wins horizontally' do
+      board = Board.new
+  
+      4.times do
+      board.player_move("d")
+      board.player_move("e")
+      board.player_move("f")
+      board.player_move("g")
+      end
+ 
+      expect(board.diagonal_win?).to eq true
+    end
+    
   end 
 end 
