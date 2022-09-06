@@ -2,21 +2,36 @@
 
 require './lib/board'
 require './lib/game'
+require './lib/player'
 require 'pry'
 
+loop do
 p "Welcome to CONNECT FOUR"
 p "Enter p to play. Enter q to quit."
-
+  input = gets.chomp
+  until input.downcase == "p" || input.downcase == "q"
+    puts "Invalid input. \n" + "Enter p to play. Enter q to quit."
     input = gets.chomp
-    if input.downcase == "p"
-        board = Board.new
-        board.render_board
-        game = Game.new
-        game.start
-    end
+  end
+
 
    
-    # input = gets.chomp
-    # if input.downcase == "q"
-    #     abort("THANK YOU FOR PLAYING!")
-    # end
+
+  if input == "p"
+      # board = Board.new
+    game = Game.new
+    game.start
+    # if computer_won?
+    #   puts "Game Over. Computer Won!"
+    # elsif player_won?
+    #   puts "Game Over. You Won!"
+    # else
+    #   puts "Game Over. No Winner!"
+    # end 
+  else
+    puts "Goodbye!"
+    break
+  end
+
+
+end
