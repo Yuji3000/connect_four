@@ -14,9 +14,6 @@ p "Enter p to play. Enter q to quit."
     input = gets.chomp
   end
 
-
-   
-
   if input == "p"
       # board = Board.new
     game = Game.new
@@ -32,6 +29,5 @@ p "Enter p to play. Enter q to quit."
     puts "Goodbye!"
     break
   end
-
 
 end

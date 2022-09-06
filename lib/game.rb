@@ -12,12 +12,12 @@ class Game
 
   def start
     while @board.board_empty? == true 
-      
       puts "==========Connect Four=========="
       @board.render_board
       p "Pick column A to G to place a chip"
       given = gets.chomp.downcase
-      until @board.valid_placement?(given) == true 
+
+    until @board.valid_placement?(given) == true 
         puts 'INVALID COLUMN. TRY AGAIN.'
         given = gets.chomp.downcase
       end
@@ -26,14 +26,11 @@ class Game
         @board.computer_move
       end    
   end
-         
-    
     sleep 1
     p '=================================='
     p '  Game Over. There is no winner.  '
     p '=================================='
     sleep 1
-
   end 
 end
 

@@ -29,7 +29,7 @@ def board_cells
     @cells["a5"] + @cells["b5"] + @cells["c5"] + @cells["d5"] + @cells["e5"] + @cells["f5"] + @cells["g5"] + " \n" +
     @cells["a6"] + @cells["b6"] + @cells["c6"] + @cells["d6"] + @cells["e6"] + @cells["f6"] + @cells["g6"]
     print render + "\n" 
-    return render
+    # return render
   end
   
 
@@ -40,13 +40,9 @@ def board_cells
       cell[1] = 'X' if cell[0].include?(given) && cell[1] == '.'
       end
     @cells = cell_arr.to_h
-  end
 
-  # def compare_column_to_selection(given)
-  #   @letters.find do |letter|
-  #     letter == given  
-  #     end
-  # end
+  end
+  
   def column_exists?(given)
     [*"a".."g"].include?(given) 
   end
@@ -54,7 +50,7 @@ def board_cells
   def valid_placement?(given)
     column_exists?(given)
     column_available?(given)
-  end
+  end 
 
 
   def column_available?(given)
@@ -90,13 +86,17 @@ def board_cells
   end
 
 
+
 end
 
 # end
 # player_cells = @cells.find_all {|k, v|  k.include?("a") && v == "X"
-    
-    
-    # cell[0][0] == letter_count += 1  && cell[0][1] == count+1 && cell[1] == "x" 
+
+
+# @cells.sort.each do |cell|
+#   cell[0][0] != unique && cell[0][1] == count+1 && cell[1] == "x" #
+#   cell[0][0] == letter_count += 1  && cell[0][1] == count+1 && cell[1] == "x" #
+
 
   
   # @cells.sort[0][0][0] #letter 
@@ -105,4 +105,6 @@ end
   # @cells do |cell|q
   #   @letters.each do |letter|
   #   shovel frist 6 elements into array
+
   # check 4* cells[1] for X or o 
+
