@@ -14,7 +14,6 @@ attr_reader :cells
     @numbers.each do |number|
       @letters.each do |letter|
         @cells["#{letter}#{number}"] = ('.')
-        
       end
     end.reverse
   end
@@ -41,6 +40,31 @@ attr_reader :cells
 
   end
 
+  def compare_column_to_selection(given)
+    @letters.find do |letter|
+      letter.upcase == given.upcase  
+      end
+  end
+
+  def column_available?(given)
+    column_check = compare_column_to_selection(given)
+    if "a1".include?(column_check) && @cells["a1"] != "."
+      p "PICK ANOTHER COLUMN!"
+    elsif "b1".include?(column_check) && @cells["b1"] != "."
+      p "PICK ANOTHER COLUMN!"
+    elsif "c1".include?(column_check) && @cells["c1"] != "."
+      p "PICK ANOTHER COLUMN!"
+    elsif "d1".include?(column_check) && @cells["d1"] != "."
+      p "PICK ANOTHER COLUMN!"
+    elsif "e1".include?(column_check) && @cells["e1"] != "."
+      p "PICK ANOTHER COLUMN!"
+    elsif "f1".include?(column_check) && @cells["f1"] != "."
+      p "PICK ANOTHER COLUMN!"
+    elsif "g1".include?(column_check) && @cells["g1"] != "."
+      p "PICK ANOTHER COLUMN!"
+   end
+  end
+  
   def board_empty?
     @cells.values.any?('.')
   end

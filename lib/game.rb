@@ -7,13 +7,11 @@ class Game
     @board = Board.new
     
   end
+  
+  
+
 
   def start
-    #prompt player to place chip/select spot on board
-    #check if placement is valid 
-    #while board is empty. player and comp take turns
-    #if board is full, end game
-    #if winner is detected end game
     while @board.board_empty?
       p "Pick column A to G to place a chip"
       given = gets.chomp 
@@ -22,9 +20,16 @@ class Game
         # @board.render_board 
         @board.computer_move
         @board.render_board 
+        @board.column_available?(given)
+        
+        
       elsif
         p "try again"
       end    
     end
   end
+    
+       
+  
 end
+

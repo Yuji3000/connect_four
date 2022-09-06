@@ -44,11 +44,18 @@ RSpec.describe Board do
   describe '#board_full' do
     it 'stops the game when board is full' do
       board = Board.new
-      board.board_full
+      board.board_empty?
       expect(board.cells.values).not_to eq(".")
       # expect when board is full game will stop
       # no valid columns available; i.e. the game board is full. 
       # In this case, the game is a draw, an endgame condition.
+    end
+  end
+
+  describe '#column_empty?' do
+    it 'checks if a column is empty' do
+      board = Board.new
+      expect(@cells["a1"]).not_to eq(".")
     end
   end
 end

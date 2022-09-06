@@ -2,7 +2,6 @@
 
 require './lib/board'
 require './lib/game'
-require './lib/player'
 require 'pry'
 
 p "Welcome to CONNECT FOUR"
@@ -14,8 +13,6 @@ p "Enter p to play. Enter q to quit."
         board.render_board
         game = Game.new
         game.start
-    elsif input.downcase == "q"
-        abort("BYE!")
     end
 
    
