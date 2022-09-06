@@ -1,5 +1,4 @@
 require 'pry'
-
 class Game
   def initialize
     # @player1 = Player.new
@@ -9,22 +8,22 @@ class Game
   end
 
   def start
-    #prompt player to place chip/select spot on board
-    #check if placement is valid 
-    #while board is empty. player and comp take turns
-    #if board is full, end game
-    #if winner is detected end game
-    while @board.board_empty?
+    while @board.board_empty? == true #&& winner == false
+      puts "==========Connect Four=========="
+      @board.render_board
       p "Pick column A to G to place a chip"
-      given = gets.chomp 
+      given = gets.chomp.downcase
+      until [*"a".."g"].include?(given) == true 
+        puts 'INVALID COLUMN. TRY AGAIN.'
+        given = gets.chomp.downcase
+      end 
       if [*"a".."g"].include?(given) == true 
-        @board.move(given)
-        # @board.render_board 
-        @board.computer_move
-        @board.render_board 
-      elsif
-        p "try again"
-      end    
-    end
+          @board.move(given)
+          @board.computer_move
+        end 
+      end
+    sleep 1
+    p "Game Over. There is no winner."
+    sleep 1
   end
 end
