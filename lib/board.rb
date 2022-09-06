@@ -2,13 +2,12 @@ require 'pry'
 class Board
 
 attr_reader :cells, :count
-  # update
   def initialize
     @numbers = (1..6).to_a
     @letters = ('a'..'g').to_a
     @cells = {}
     board_cells
-    count = 0
+    @count = 0
   end 
   
   def board_cells
@@ -28,22 +27,21 @@ attr_reader :cells, :count
     @cells["a5"] + @cells["b5"] + @cells["c5"] + @cells["d5"] + @cells["e5"] + @cells["f5"] + @cells["g5"] + " \n" +
     @cells["a6"] + @cells["b6"] + @cells["c6"] + @cells["d6"] + @cells["e6"] + @cells["f6"] + @cells["g6"]
     print render + "\n" 
-    # return render
+    return render
   end
   
-
-  def move(given) #human player
+  def player_move(given) #human player
     cell_arr = @cells.sort.reverse    
     cell_arr.find do |cell| 
       cell[1] = 'X' if cell[0].include?(given) && cell[1] == '.'
-      end
+    end
     @cells = cell_arr.to_h
   end
-
+  
   def board_empty?
     @cells.values.any?('.')
   end
-
+  
   def computer_move #computer player
     computer_choice = [*"a".."g"].sample
     cell_arr = @cells.sort.reverse
@@ -53,11 +51,36 @@ attr_reader :cells, :count
     @cells = cell_arr.to_h
   end
 
+  def player_win
+    count = 0
+    cell_arr = @cells.sort.reverse
+    cell_arr.find do |cell| 
+      if cell[0].include?("a") && cell[1] == "X"
+        count += 1
+      else 
+        count = 0
+      end
+      true if count == 4 
+        # puts "Game Over. Player 1 has won the game"
+      end
+    end
 
+  def column_exits?(given)
+    [*"a".."g"].include?(given)
+  end
 
+  def column_full(given)
+    cell_arr = @cells.sort.reverse
+    cell_arr.find_all do |cell| 
+     cell[0][0] == given && cell[1] == "."
+    end.count
+  end
+
+  def valid_placement?(given)
+    column_exits?(given) == true && (column_full(given) != 0) == true
+  end
 end
 
-# end
 # player_cells = @cells.find_all {|k, v|  k.include?("a") && v == "X"
 
 # @cells.sort.each do |cell|
