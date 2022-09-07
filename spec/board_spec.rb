@@ -32,7 +32,6 @@ RSpec.describe Board do
       expect(board.player_move('a').count).to eq 42
       expect(board.player_move('a')).to include('a1' => '.')
       expect(board.player_move('a')).to include('a2' => '.')
-      # expect(board.move("a")).to include("a3" => "X")
     end
   end
   
@@ -52,7 +51,7 @@ RSpec.describe Board do
   end
 
   describe 'column_available?' do
-      it 'validates weather the column is not full' do
+    it 'validates weather the column is not full' do
       board = Board.new      
       board.player_move('a')
       expect(board.column_available?('a')).to eq true
@@ -77,61 +76,62 @@ RSpec.describe Board do
     end
   end
 
-    it 'can identify a player win' do
+  describe '#player_win?' do
+    it 'identifies a win' do
       board = Board.new
       3.times do
-        board.player_move('a')
+      board.player_move('a')
       end 
       expect(board.player_win?('a')).to eq false
       board.player_move('a')
       board.player_move('a')
       expect(board.player_win?('a')).to eq true
     end
+  end
 
-    describe '#player_vertical_win?' do
-      it 'can identify wins vertically' do
-        board = Board.new
-        expect(board.player_vertical_win?('a')).to eq false
-        4.times do
-        board.player_move("a")
-        end 
-        expect(board.player_vertical_win?('a')).to eq true
-      end
+  describe '#player_vertical_win?' do
+    it 'can identify wins vertically' do
+      board = Board.new
+      expect(board.player_vertical_win?('a')).to eq false
+      4.times do
+      board.player_move("a")
+      end 
+      expect(board.player_vertical_win?('a')).to eq true
     end
+  end
 
-    describe '#player_horizontal_win?' do
-      it 'can identify wins horizontally' do
-        board = Board.new
-        expect(board.player_horizontal_win?('a')).to eq false
-        board.player_move("a")
-        board.player_move("b")
-        board.player_move("c")
-        board.player_move("d")
-        expect(board.player_horizontal_win?('a')).to eq true
-      end
+  describe '#player_horizontal_win?' do
+    it 'can identify wins horizontally' do
+      board = Board.new
+      expect(board.player_horizontal_win?('a')).to eq false
+      board.player_move("a")
+      board.player_move("b")
+      board.player_move("c")
+      board.player_move("d")
+      expect(board.player_horizontal_win?('a')).to eq true
     end
+  end
 
-    
-    describe '#player_diagonal_win?' do
-      it 'can identify wins diagnolly' do
-        board = Board.new
-        4.times do
-        board.player_move("g")
-        end
-        expect(board.player_diagonal_win?("g")).to eq false
-        3.times do
-        board.player_move("f")
-        end
-        expect(board.player_diagonal_win?("f")).to eq false
-        2.times do
-        board.player_move("e")
-        end
-        expect(board.player_diagonal_win?("e")).to eq false
-        1.times do
-        board.player_move("d")
-        end
-        expect(board.player_diagonal_win?("d")).to eq true
+  describe '#player_diagonal_win?' do
+    it 'can identify wins diagnolly' do
+      board = Board.new
+      4.times do
+      board.player_move("g")
       end
-    end 
+      expect(board.player_diagonal_win?("g")).to eq false
+      3.times do
+      board.player_move("f")
+      end
+      expect(board.player_diagonal_win?("f")).to eq false
+      2.times do
+      board.player_move("e")
+      end
+      expect(board.player_diagonal_win?("e")).to eq false
+      1.times do
+      board.player_move("d")
+      end
+      expect(board.player_diagonal_win?("d")).to eq true
+    end
+  end 
 end
 
