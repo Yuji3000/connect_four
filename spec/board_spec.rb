@@ -16,7 +16,6 @@ RSpec.describe Board do
     end
   end
   
-
   describe 'board functions' do 
     it 'can render a new board' do 
       board = Board.new
@@ -47,15 +46,12 @@ RSpec.describe Board do
     it 'stops the game when board is full' do
       board = Board.new
       expect(board.board_empty?).to eq true
+    end 
 
-      # expect when board is full game will stop
-      # no valid columns available; i.e. the game board is full. 
-      # In this case, the game is a draw, an endgame condition.
-
-    xit 'verifies the column exists' do
+    it 'verifies the column exists' do
       board = Board.new      
-      expect(board.column_exits?('a')).to eq true
-      expect(board.column_exits?('s')).to eq false
+      expect(board.column_exists?('a')).to eq true
+      expect(board.column_exists?('s')).to eq false
     end
 
     xit 'validates weather the column is not full' do
@@ -79,36 +75,52 @@ RSpec.describe Board do
       expect(board.valid_placement?('a')).to eq false
     end
 
-    xit 'can identify a vertical win' do
+    it 'can identify a player win' do
       board = Board.new
-      expect(board.player_win?).to eq false
+      expect(board.player_win?('a')).to eq false
       3.times do
       board.player_move("a")
       end 
       board.player_move("a")
       board.player_move("a")
-      expect(board.player_win?).to eq true
+      expect(board.player_win?("a")).to eq true
     end
 
-    it 'can identify wins' do
+    it 'can identify wins vertically' do
       board = Board.new
-      expect(board.vertical_win?('a')).to eq false
+      expect(board.player_vertical_win?('a')).to eq false
       4.times do
       board.player_move("a")
       end 
-      expect(board.vertical_win?('a')).to eq true
+      expect(board.player_vertical_win?('a')).to eq true
+    end
+
+    it 'can identify wins horizontally' do
+      board = Board.new
+      expect(board.player_horizontal_win?('a')).to eq false
+  
+      1.times do
+      board.player_move("a")
+      board.player_move("b")
+      board.player_move("c")
+      board.player_move("d")
+      end
+#  require 'pry'; binding.pry
+      expect(board.player_horizontal_win?('a')).to eq true
+    end
+
+    it 'can identify wins diagnolly' do
+      board = Board.new
+  
+      4.times do
+      board.player_move("d")
+      board.player_move("e")
+      board.player_move("f")
+      board.player_move("g")
+      end
+ 
+      expect(board.player_diagonal_win?('a')).to eq true
     end
   end 
-end 
-
-
-    
-  # describe '#column_available?' do
-  #   it 'checks if a column is available to place piece into' do
-  #     board = Board.new
-  #     board.player_move(a)
-  #     expect(column_available?(a)).to eq (true)
-  #   end
-  # end
 end
 

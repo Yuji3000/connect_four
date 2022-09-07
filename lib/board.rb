@@ -10,7 +10,6 @@ attr_reader :cells, :count
     @count = 0
   end 
   
-
   def board_cells
     @numbers.each do |number|
       @letters.each do |letter|
@@ -30,7 +29,6 @@ attr_reader :cells, :count
     return render
   end
   
-
   def player_move(given) #human player
     cell_arr = @cells.sort.reverse  
     cell_arr.find do |cell| 
@@ -43,12 +41,9 @@ attr_reader :cells, :count
     [*"a".."g"].include?(given) 
   end
   
-
   def valid_placement?(given)
-    column_exists?(given)
-    column_available?(given)
+    column_exists?(given) && column_available?(given)
   end 
-
 
   def column_available?(given)
     "a1".include?(given) && @cells["a1"] == "." ||
@@ -63,9 +58,8 @@ attr_reader :cells, :count
   def board_empty?
     @cells.values.any?('.')
   end
-  
-  def computer_move #computer player
-    computer_choice = [*"a".."g"].sample
+
+  def computer_move(computer_choice)
     cell_arr = @cells.sort.reverse
     cell_arr.find do |cell| 
       cell[1] = 'O' if cell[0].include?(computer_choice) && cell[1] == '.'
@@ -73,27 +67,31 @@ attr_reader :cells, :count
     @cells = cell_arr.to_h
   end
 
+  def player_win?(given)
+    @count = 0
+    player_vertical_win?(given) == true || 
+    player_horizontal_win?(given) == true ||
+    player_diagonal_win?(given) == true
+  end
 
-  def vertical_win?(given)
-    consecutive_vertical(given)
+  def computer_win?(computer_choice)
+    @count = 0
+    computer_vertical_win?(computer_choice) == true || 
+    computer_horizontal_win?(computer_choice) == true ||
+    computer_diagonal_win?(computer_choice) == true
+  end
+
+  def player_vertical_win?(given)
+    @count = 0
+    player_consecutive_vertical(given)
     @count == 4
   end 
 
-  def winner
-    @cells.sort.each do |cell|
-      if cell[0][0] != unique && cell[0][1] == count+1 && cell[1] == "x" 
-        binding.pry
-        puts winner
-      end
-    end
-  end
-
-  def consecutive_vertical(given)
-    tester = @cells.find_all do |k, v|
+  def player_consecutive_vertical(given)
+    cells_avail = @cells.find_all do |k, v|
       k[0].include?(given)
     end
-    
-    tester.each do |cell|
+    cells_avail.each do |cell|
       if cell[1] == "X"
         @count = @count += 1 
       else
@@ -105,21 +103,135 @@ attr_reader :cells, :count
     end    
   end
 
+  def computer_vertical_win?(computer_choice)
+    @count = 0
+    computer_consecutive_vertical(computer_choice)
+    @count == 4
+  end 
 
-
-  # @cells.sort.each do |cell|
-  #   cell[0][0] != unique && cell[0][1] == count+1 && cell[1] == "x" #
-  #   cell[0][0] == letter_count += 1  && cell[0][1] == count+1 && cell[1] == "x" #
-
-
+  def computer_consecutive_vertical(computer_choice)
+    cells_avail = @cells.find_all do |k, v|
+      k[0].include?(computer_choice)
+    end
+    cells_avail.each do |cell|
+      if cell[1] == "O"
+        @count = @count += 1 
+      else
+        @count = 0
+      end 
+      if @count == 4
+        break
+      end
+    end    
+  end
   
-  # @cells.sort[0][0][0] #letter 
-  # @cells.sort[0][0][1] #number
+  def player_horizontal_win?(given)
+    @count = 0
+    player_consecutive_horizontal(given)
+    @count == 4
+  end
+
+  def player_consecutive_horizontal(given)
+    cells_hor = @cells.sort_by {|cell| [cell[0][1], cell[0][0]]}
+    combinations = cells_hor.each_cons(4).to_a.delete_if do |cell| 
+      cell[0][0].include?('g') || 
+      cell[0][0].include?('e') || 
+      cell[0][0].include?('f')
+    end
+    combinations.each do |cell|
+      if cell[0][1] == "X"
+        @count = @count += 1 
+      else
+        @count = 0
+      end 
+      if @count == 4
+        break
+      end
+    end    
+  end
   
-  # @cells do |cell|q
-  #   @letters.each do |letter|
-  #   shovel frist 6 elements into array
+  def computer_horizontal_win?(computer_choice)
+    @count = 0
+    computer_consecutive_horizontal(computer_choice)
+    @count == 4
+  end
+  
+  def computer_consecutive_horizontal(computer_choice)
+    cells_hor = @cells.sort_by {|cell| [cell[0][1], cell[0][0]]}
+    combinations = cells_hor.each_cons(4).to_a.delete_if do |cell| 
+      cell[0][0].include?('g') || 
+      cell[0][0].include?('e') || 
+      cell[0][0].include?('f')
+    end
+    combinations.each do |cell|
+      if cell[0][1] == "O"
+        @count = @count += 1 
+      else
+        @count = 0
+      end 
+      if @count == 4
+        break
+      end
+    end    
+  end
+  
+  def player_diagonal_win?(given)
+    @cells["a4"] == "X" && @cells["b3"] == "X" && @cells["c2"] == "X" && @cells["d1"] == "X" ||
+    @cells["a5"] == "X" && @cells["b4"] == "X" && @cells["c3"] == "X" && @cells["d2"] == "X" ||
+    @cells["a6"] == "X" && @cells["b5"] == "X" && @cells["c4"] == "X" && @cells["d3"] == "X" ||
+    @cells["b4"] == "X" && @cells["c3"] == "X" && @cells["d2"] == "X" && @cells["e1"] == "X" ||
+    @cells["b5"] == "X" && @cells["c4"] == "X" && @cells["d3"] == "X" && @cells["e2"] == "X" ||
+    @cells["b6"] == "X" && @cells["c5"] == "X" && @cells["d4"] == "X" && @cells["e3"] == "X" ||
+    @cells["c4"] == "X" && @cells["d3"] == "X" && @cells["e2"] == "X" && @cells["f1"] == "X" ||
+    @cells["c5"] == "X" && @cells["d4"] == "X" && @cells["e3"] == "X" && @cells["f2"] == "X" ||
+    @cells["c6"] == "X" && @cells["d5"] == "X" && @cells["e4"] == "X" && @cells["f3"] == "X" ||
+    @cells["d4"] == "X" && @cells["e3"] == "X" && @cells["f2"] == "X" && @cells["g1"] == "X" ||
+    @cells["d5"] == "X" && @cells["e4"] == "X" && @cells["f3"] == "X" && @cells["g2"] == "X" ||
+    @cells["d6"] == "X" && @cells["e5"] == "X" && @cells["f4"] == "X" && @cells["g3"] == "X" ||
+    @cells["c4"] == "X" && @cells["d3"] == "X" && @cells["e2"] == "X" && @cells["f1"] == "X" ||
+    @cells["c5"] == "X" && @cells["d4"] == "X" && @cells["e3"] == "X" && @cells["f2"] == "X" ||
+    @cells["c6"] == "X" && @cells["d5"] == "X" && @cells["e4"] == "X" && @cells["f3"] == "X" ||
+    @cells["a1"] == "X" && @cells["b2"] == "X" && @cells["c3"] == "X" && @cells["d4"] == "X" ||
+    @cells["a2"] == "X" && @cells["b3"] == "X" && @cells["c4"] == "X" && @cells["d5"] == "X" ||
+    @cells["a3"] == "X" && @cells["b4"] == "X" && @cells["c5"] == "X" && @cells["d6"] == "X" ||
+    @cells["b1"] == "X" && @cells["c2"] == "X" && @cells["d3"] == "X" && @cells["e4"] == "X" ||
+    @cells["b2"] == "X" && @cells["c3"] == "X" && @cells["d4"] == "X" && @cells["e5"] == "X" ||
+    @cells["b3"] == "X" && @cells["c4"] == "X" && @cells["d5"] == "X" && @cells["e6"] == "X" ||
+    @cells["c1"] == "X" && @cells["d2"] == "X" && @cells["d3"] == "X" && @cells["e4"] == "X" ||
+    @cells["c2"] == "X" && @cells["d3"] == "X" && @cells["d4"] == "X" && @cells["e5"] == "X" ||
+    @cells["c3"] == "X" && @cells["d4"] == "X" && @cells["d5"] == "X" && @cells["e6"] == "X" ||   
+    @cells["d1"] == "X" && @cells["d2"] == "X" && @cells["fd3" == "X"] && @cells["g4"] == "X" ||
+    @cells["d2"] == "X" && @cells["d3"] == "X" && @cells["fd4" == "X"] && @cells["g5"] == "X" ||
+    @cells["d3"] == "X" && @cells["d4"] == "X" && @cells["fd5" == "X"] && @cells["g6"] == "X"
+  end
 
-  # check 4* cells[1] for X or o 
-
-
+  def computer_diagonal_win?(computer_choice)
+    @cells["a4"] == "O" && @cells["b3"] == "O" && @cells["c2"] == "O" && @cells["d1"] == "O" ||
+    @cells["a5"] == "O" && @cells["b4"] == "O" && @cells["c3"] == "O" && @cells["d2"] == "O" ||
+    @cells["a6"] == "O" && @cells["b5"] == "O" && @cells["c4"] == "O" && @cells["d3"] == "O" ||
+    @cells["b4"] == "O" && @cells["c3"] == "O" && @cells["d2"] == "O" && @cells["e1"] == "O" ||
+    @cells["b5"] == "O" && @cells["c4"] == "O" && @cells["d3"] == "O" && @cells["e2"] == "O" ||
+    @cells["b6"] == "O" && @cells["c5"] == "O" && @cells["d4"] == "O" && @cells["e3"] == "O" ||
+    @cells["c4"] == "O" && @cells["d3"] == "O" && @cells["e2"] == "O" && @cells["f1"] == "O" ||
+    @cells["c5"] == "O" && @cells["d4"] == "O" && @cells["e3"] == "O" && @cells["f2"] == "O" ||
+    @cells["c6"] == "O" && @cells["d5"] == "O" && @cells["e4"] == "O" && @cells["f3"] == "O" ||
+    @cells["d4"] == "O" && @cells["e3"] == "O" && @cells["f2"] == "O" && @cells["g1"] == "O" ||
+    @cells["d5"] == "O" && @cells["e4"] == "O" && @cells["f3"] == "O" && @cells["g2"] == "O" ||
+    @cells["d6"] == "O" && @cells["e5"] == "O" && @cells["f4"] == "O" && @cells["g3"] == "O" ||    
+    @cells["c4"] == "O" && @cells["d3"] == "O" && @cells["e2"] == "O" && @cells["f1"] == "O" ||
+    @cells["c5"] == "O" && @cells["d4"] == "O" && @cells["e3"] == "O" && @cells["f2"] == "O" ||
+    @cells["c6"] == "O" && @cells["d5"] == "O" && @cells["e4"] == "O" && @cells["f3"] == "O" ||   
+    @cells["a1"] == "O" && @cells["b2"] == "O" && @cells["c3"] == "O" && @cells["d4"] == "O" ||
+    @cells["a2"] == "O" && @cells["b3"] == "O" && @cells["c4"] == "O" && @cells["d5"] == "O" ||
+    @cells["a3"] == "O" && @cells["b4"] == "O" && @cells["c5"] == "O" && @cells["d6"] == "O" ||
+    @cells["b1"] == "O" && @cells["c2"] == "O" && @cells["d3"] == "O" && @cells["e4"] == "O" ||
+    @cells["b2"] == "O" && @cells["c3"] == "O" && @cells["d4"] == "O" && @cells["e5"] == "O" ||
+    @cells["b3"] == "O" && @cells["c4"] == "O" && @cells["d5"] == "O" && @cells["e6"] == "O" ||
+    @cells["c1"] == "O" && @cells["d2"] == "O" && @cells["d3"] == "O" && @cells["e4"] == "O" ||
+    @cells["c2"] == "O" && @cells["d3"] == "O" && @cells["d4"] == "O" && @cells["e5"] == "O" ||
+    @cells["c3"] == "O" && @cells["d4"] == "O" && @cells["d5"] == "O" && @cells["e6"] == "O" ||   
+    @cells["d1"] == "O" && @cells["d2"] == "O" && @cells["fd3"] == "O" && @cells["g4"] == "O" ||
+    @cells["d2"] == "O" && @cells["d3"] == "O" && @cells["fd4"] == "O" && @cells["g5"] == "O" ||
+    @cells["d3"] == "O" && @cells["d4"] == "O" && @cells["fd5"] == "O" && @cells["g6"] == "O"
+  end
+end
