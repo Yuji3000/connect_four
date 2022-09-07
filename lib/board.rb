@@ -2,17 +2,16 @@ require 'pry'
 class Board
 
 attr_reader :cells, :count
-  # update
   def initialize
     @numbers = (1..6).to_a
     @letters = ('a'..'g').to_a
     @cells = {}
     board_cells
-    count = 0
+    @count = 0
   end 
   
 
-def board_cells
+  def board_cells
     @numbers.each do |number|
       @letters.each do |letter|
         @cells["#{letter}#{number}"] = ('.')
@@ -28,25 +27,23 @@ def board_cells
     @cells["a4"] + @cells["b4"] + @cells["c4"] + @cells["d4"] + @cells["e4"] + @cells["f4"] + @cells["g4"] + " \n" +
     @cells["a5"] + @cells["b5"] + @cells["c5"] + @cells["d5"] + @cells["e5"] + @cells["f5"] + @cells["g5"] + " \n" +
     @cells["a6"] + @cells["b6"] + @cells["c6"] + @cells["d6"] + @cells["e6"] + @cells["f6"] + @cells["g6"]
-    print render + "\n" 
-    # return render
+    return render
   end
   
 
-  
-  def move(given) #human player
-    cell_arr = @cells.sort.reverse    
+  def player_move(given) #human player
+    cell_arr = @cells.sort.reverse  
     cell_arr.find do |cell| 
       cell[1] = 'X' if cell[0].include?(given) && cell[1] == '.'
-      end
+    end
     @cells = cell_arr.to_h
-
   end
   
   def column_exists?(given)
     [*"a".."g"].include?(given) 
   end
   
+
   def valid_placement?(given)
     column_exists?(given)
     column_available?(given)
@@ -62,11 +59,11 @@ def board_cells
     "f1".include?(given) && @cells["f1"] == "." ||
     "g1".include?(given) && @cells["g1"] == "."
   end
-  
+
   def board_empty?
     @cells.values.any?('.')
   end
-
+  
   def computer_move #computer player
     computer_choice = [*"a".."g"].sample
     cell_arr = @cells.sort.reverse
@@ -75,6 +72,12 @@ def board_cells
     end
     @cells = cell_arr.to_h
   end
+
+
+  def vertical_win?(given)
+    consecutive_vertical(given)
+    @count == 4
+  end 
 
   def winner
     @cells.sort.each do |cell|
@@ -85,17 +88,28 @@ def board_cells
     end
   end
 
+  def consecutive_vertical(given)
+    tester = @cells.find_all do |k, v|
+      k[0].include?(given)
+    end
+    
+    tester.each do |cell|
+      if cell[1] == "X"
+        @count = @count += 1 
+      else
+        @count = 0
+      end 
+      if @count == 4
+        break
+      end
+    end    
+  end
 
 
-end
 
-# end
-# player_cells = @cells.find_all {|k, v|  k.include?("a") && v == "X"
-
-
-# @cells.sort.each do |cell|
-#   cell[0][0] != unique && cell[0][1] == count+1 && cell[1] == "x" #
-#   cell[0][0] == letter_count += 1  && cell[0][1] == count+1 && cell[1] == "x" #
+  # @cells.sort.each do |cell|
+  #   cell[0][0] != unique && cell[0][1] == count+1 && cell[1] == "x" #
+  #   cell[0][0] == letter_count += 1  && cell[0][1] == count+1 && cell[1] == "x" #
 
 
   
@@ -107,4 +121,5 @@ end
   #   shovel frist 6 elements into array
 
   # check 4* cells[1] for X or o 
+
 
