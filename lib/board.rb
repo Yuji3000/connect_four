@@ -139,6 +139,5 @@ attr_reader :cells, :count
     @cells["d1"] && @cells["d2"] && @cells["fd3"] && @cells["g4"] == "X" ||
     @cells["d2"] && @cells["d3"] && @cells["fd4"] && @cells["g5"] == "X" ||
     @cells["d3"] && @cells["d4"] && @cells["fd5"] && @cells["g6"] == "X"
-    # require 'pry'; binding.pry
   end
 end

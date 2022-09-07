@@ -13,7 +13,6 @@ class Game
       puts @board.render_board
       p "Pick column A to G to place a chip"
       given = gets.chomp.downcase
-      
       until @board.valid_placement(given) == true
         puts 'INVALID COLUMN. TRY AGAIN.'
         given = gets.chomp.downcase
