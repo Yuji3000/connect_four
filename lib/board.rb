@@ -68,21 +68,21 @@ attr_reader :cells, :count
   end
 
   def player_win?(given)
-    counter = 0
+    @count = 0
     player_vertical_win?(given) == true || 
     player_horizontal_win?(given) == true ||
     player_diagonal_win?(given) == true
   end
 
   def computer_win?(computer_choice)
-    counter = 0
+    @count = 0
     computer_vertical_win?(computer_choice) == true || 
     computer_horizontal_win?(computer_choice) == true ||
     computer_diagonal_win?(computer_choice) == true
   end
 
   def player_vertical_win?(given)
-    count = 0
+    @count = 0
     player_consecutive_vertical(given)
     @count == 4
   end 
@@ -91,9 +91,6 @@ attr_reader :cells, :count
     cells_avail = @cells.find_all do |k, v|
       k[0].include?(given)
     end
-    
-    count = 0
-
     cells_avail.each do |cell|
       if cell[1] == "X"
         @count = @count += 1 
@@ -107,7 +104,7 @@ attr_reader :cells, :count
   end
 
   def computer_vertical_win?(computer_choice)
-    count = 0
+    @count = 0
     computer_consecutive_vertical(computer_choice)
     @count == 4
   end 
@@ -116,7 +113,6 @@ attr_reader :cells, :count
     cells_avail = @cells.find_all do |k, v|
       k[0].include?(computer_choice)
     end
-    count = 0
     cells_avail.each do |cell|
       if cell[1] == "O"
         @count = @count += 1 
@@ -130,12 +126,12 @@ attr_reader :cells, :count
   end
   
   def player_horizontal_win?(given)
+    @count = 0
     player_consecutive_horizontal(given)
-    count == 4
+    @count == 4
   end
 
   def player_consecutive_horizontal(given)
-    count = 0
     cells_hor = @cells.sort_by {|cell| [cell[0][1], cell[0][0]]}
     combinations = cells_hor.each_cons(4).to_a.delete_if do |cell| 
       cell[0][0].include?('g') || 
@@ -155,13 +151,12 @@ attr_reader :cells, :count
   end
   
   def computer_horizontal_win?(computer_choice)
-    count = 0
+    @count = 0
     computer_consecutive_horizontal(computer_choice)
-    count == 4
+    @count == 4
   end
   
   def computer_consecutive_horizontal(computer_choice)
-    count = 0
     cells_hor = @cells.sort_by {|cell| [cell[0][1], cell[0][0]]}
     combinations = cells_hor.each_cons(4).to_a.delete_if do |cell| 
       cell[0][0].include?('g') || 

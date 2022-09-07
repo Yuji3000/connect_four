@@ -7,7 +7,6 @@ class Game
   end
   
   def start
-    count = 0
       p 'Please enter your name:'
       @name = gets.chomp
       while @board.board_empty? == true
@@ -22,7 +21,6 @@ class Game
         end
         if @board.valid_placement?(given) == true
           @board.player_move(given)
-          counter = 0
           if @board.player_win?(given) == true
             puts @board.render_board
             puts "Congratulations, You Won!"
