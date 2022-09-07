@@ -138,14 +138,16 @@ attr_reader :cells, :count
       cell[0][0].include?('e') || 
       cell[0][0].include?('f')
     end
-    combinations.each do |cell|
-      if cell[0][1] == "X"
-        @count = @count += 1 
-      else
-        @count = 0
-      end 
-      if @count == 4
-        break
+    combinations.each do |combo|
+      combo.each do |cell|
+        if cell[1] == "X"
+          @count = @count += 1 
+          if @count == 4
+            return
+          end
+        else
+          @count = 0
+        end 
       end
     end    
   end
