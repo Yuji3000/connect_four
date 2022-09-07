@@ -5,7 +5,8 @@ require 'pry'
 class Player
 
     def initialize(name)
-      @name = name
+      @player1 = Player.new(name)
+      @player2 = Player.new(name)
       @board = Board.new
     end
 
