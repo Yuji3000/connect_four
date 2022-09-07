@@ -75,29 +75,29 @@ RSpec.describe Board do
       expect(board.valid_placement?('a')).to eq false
     end
 
-    xit 'can identify a player win' do
+    it 'can identify a player win' do
       board = Board.new
-      expect(board.player_win?).to eq false
+      expect(board.player_win?('a')).to eq false
       3.times do
       board.player_move("a")
       end 
       board.player_move("a")
       board.player_move("a")
-      expect(board.player_win?).to eq true
+      expect(board.player_win?("a")).to eq true
     end
 
     it 'can identify wins vertically' do
       board = Board.new
-      expect(board.vertical_win?('a')).to eq false
+      expect(board.player_vertical_win?('a')).to eq false
       4.times do
       board.player_move("a")
       end 
-      expect(board.vertical_win?('a')).to eq true
+      expect(board.player_vertical_win?('a')).to eq true
     end
 
     it 'can identify wins horizontally' do
       board = Board.new
-      expect(board.horizontal_win?).to eq false
+      expect(board.player_horizontal_win?('a')).to eq false
   
       1.times do
       board.player_move("a")
@@ -106,7 +106,7 @@ RSpec.describe Board do
       board.player_move("d")
       end
 #  require 'pry'; binding.pry
-      expect(board.horizontal_win?).to eq true
+      expect(board.player_horizontal_win?('a')).to eq true
     end
 
     it 'can identify wins diagnolly' do
@@ -119,16 +119,7 @@ RSpec.describe Board do
       board.player_move("g")
       end
  
-      expect(board.diagonal_win?).to eq true
-    end
-    
-    xit 'can identify wins horizontally' do
-      board = Board.new
-  
-      4.times do
-      board.player_move("d")
-      end
-      expect(board.horizontal_combinations).to eq true
+      expect(board.player_diagonal_win?('a')).to eq true
     end
   end 
 end

@@ -16,7 +16,6 @@ loop do
     if input == "p"
       game = Game.new
       game.start
-    
     else
       puts "Goodbye!"
       break

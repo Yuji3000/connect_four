@@ -12,4 +12,10 @@ class Player
     #   end
     #   cells = cell_arr.to_h
     # end
+
+    # def player_win?
+    #   @board.player_vertical_win? == true || 
+    #   @board.player_horizontal_win? == true ||
+    #   @board.player_diagonal_win? == true
+    # end
 end
