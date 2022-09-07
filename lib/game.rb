@@ -1,23 +1,29 @@
 require 'pry'
 class Game
   def initialize
-    @player1 = Player.new
-    # @computer = Player.new
     @board = Board.new  
+    # @name = gets.chomp
+    @player = Player.new(@name)
+    # @computer = Player.new
   end
   
   def start
+      p 'Please enter your name:'
+      @name = gets.chomp
     while @board.board_empty? == true
+      
       puts "==========Connect Four=========="
       puts @board.render_board
-      p "Pick column A to G to place a chip"
+      puts "#{@name} pick a column A to G to place your chip"
       given = gets.chomp.downcase
-      until @board.valid_placement(given) == true
+      
+      until @board.valid_placement?(given) == true
         puts 'INVALID COLUMN. TRY AGAIN.'
         given = gets.chomp.downcase
       end
-      if @board.valid_placement(given) == true
-        @player.player_move(given)
+      
+      if @board.valid_placement?(given) == true
+        @board.player_move(given)
         @board.computer_move
       end
     end

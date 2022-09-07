@@ -74,21 +74,12 @@ attr_reader :cells, :count
     @count == 4
   end 
 
-  def winner
-    @cells.sort.each do |cell|
-      if cell[0][0] != unique && cell[0][1] == count+1 && cell[1] == "x" 
-        binding.pry
-        puts winner
-      end
-    end
-  end
-
   def consecutive_vertical(given)
-    tester = @cells.find_all do |k, v|
+    cells_arr = @cells.find_all do |k, v|
       k[0].include?(given)
     end
     
-    tester.each do |cell|
+    cells_arr.each do |cell|
       if cell[1] == "X"
         @count = @count += 1 
       else
@@ -99,37 +90,65 @@ attr_reader :cells, :count
       end
     end    
   end
+  
+  def consecutive_horizontal   
+    cells_arr = @cells.sort_by {|cell| [cell[0][1], cell[0][0]]}
+    combinations = cells_arr.each_cons(4).to_a.delete_if do |cell| 
+      cell[0][0].include?('g') || 
+      cell[0][0].include?('e') || 
+      cell[0][0].include?('f')
+    end
 
-  def horizontal_win?
-    @cells["a1"] && @cells["b1"] && @cells["c1"] && @cells["d1"] == "X" ||
-    @cells["a2"] && @cells["b2"] && @cells["c2"] && @cells["d2"] == "X" ||
-    @cells["a3"] && @cells["b3"] && @cells["c3"] && @cells["d3"] == "X" ||
-    @cells["a4"] && @cells["b4"] && @cells["c4"] && @cells["d4"] == "X" ||
-    @cells["a5"] && @cells["b5"] && @cells["c5"] && @cells["d5"] == "X" ||
-    @cells["a6"] && @cells["b6"] && @cells["c6"] && @cells["d6"] == "X" ||
-    
-    @cells["b1"] && @cells["c1"] && @cells["d1"] && @cells["e1"] == "X" ||
-    @cells["b2"] && @cells["c2"] && @cells["d2"] && @cells["e2"] == "X" ||
-    @cells["b3"] && @cells["c3"] && @cells["d3"] && @cells["e3"] == "X" ||
-    @cells["b4"] && @cells["c4"] && @cells["d4"] && @cells["e4"] == "X" ||
-    @cells["b5"] && @cells["c5"] && @cells["d5"] && @cells["e5"] == "X" ||
-    @cells["b6"] && @cells["c6"] && @cells["d6"] && @cells["e6"] == "X" ||
-
-    @cells["c1"] && @cells["d1"] && @cells["e1"] && @cells["f1"] == "X" ||
-    @cells["c2"] && @cells["d2"] && @cells["e2"] && @cells["f2"] == "X" ||
-    @cells["c3"] && @cells["d3"] && @cells["e3"] && @cells["f3"] == "X" ||
-    @cells["c4"] && @cells["d4"] && @cells["e4"] && @cells["f4"] == "X" ||
-    @cells["c5"] && @cells["d5"] && @cells["e5"] && @cells["f5"] == "X" ||
-    @cells["c6"] && @cells["d6"] && @cells["e6"] && @cells["f6"] == "X" ||
-    @cells["c1"] && @cells["d1"] && @cells["e1"] && @cells["f1"] == "X" ||
-
-    @cells["d1"] && @cells["e1"] && @cells["f1"] && @cells["g1"] == "X" ||
-    @cells["d2"] && @cells["e2"] && @cells["f2"] && @cells["g2"] == "X" ||
-    @cells["d3"] && @cells["e3"] && @cells["f3"] && @cells["g3"] == "X" ||
-    @cells["d4"] && @cells["e4"] && @cells["f4"] && @cells["g4"] == "X" ||
-    @cells["d5"] && @cells["e5"] && @cells["f5"] && @cells["g5"] == "X" ||
-    @cells["d6"] && @cells["e6"] && @cells["f6"] && @cells["g6"] == "X" 
+    combinations.each do |cell|
+      if cell[0][1] == "X"
+        @count = @count += 1 
+      else
+        @count = 0
+      end 
+      if @count == 4
+        break
+      end
+    end    
   end
+  
+  def horizontal_win?
+    consecutive_horizontal
+    count == 4
+  end
+
+  # end
+    # require 'pry'; binding.pry
+  #   @cells["a1"] && @cells["b1"] && @cells["c1"] && @cells["d1"] == "X" ||
+  #   @cells["a2"] && @cells["b2"] && @cells["c2"] && @cells["d2"] == "X" ||
+  #   @cells["a3"] && @cells["b3"] && @cells["c3"] && @cells["d3"] == "X" ||
+  #   @cells["a4"] && @cells["b4"] && @cells["c4"] && @cells["d4"] == "X" ||
+  #   @cells["a5"] && @cells["b5"] && @cells["c5"] && @cells["d5"] == "X" ||
+  #   @cells["a6"] && @cells["b6"] && @cells["c6"] && @cells["d6"] == "X" ||
+    
+  #   @cells["b1"] && @cells["c1"] && @cells["d1"] && @cells["e1"] == "X" ||
+  #   @cells["b2"] && @cells["c2"] && @cells["d2"] && @cells["e2"] == "X" ||
+  #   @cells["b3"] && @cells["c3"] && @cells["d3"] && @cells["e3"] == "X" ||
+  #   @cells["b4"] && @cells["c4"] && @cells["d4"] && @cells["e4"] == "X" ||
+  #   @cells["b5"] && @cells["c5"] && @cells["d5"] && @cells["e5"] == "X" ||
+  #   @cells["b6"] && @cells["c6"] && @cells["d6"] && @cells["e6"] == "X" ||
+
+  #   @cells["c1"] && @cells["d1"] && @cells["e1"] && @cells["f1"] == "X" ||
+  #   @cells["c2"] && @cells["d2"] && @cells["e2"] && @cells["f2"] == "X" ||
+  #   @cells["c3"] && @cells["d3"] && @cells["e3"] && @cells["f3"] == "X" ||
+  #   @cells["c4"] && @cells["d4"] && @cells["e4"] && @cells["f4"] == "X" ||
+  #   @cells["c5"] && @cells["d5"] && @cells["e5"] && @cells["f5"] == "X" ||
+  #   @cells["c6"] && @cells["d6"] && @cells["e6"] && @cells["f6"] == "X" ||
+  #   @cells["c1"] && @cells["d1"] && @cells["e1"] && @cells["f1"] == "X" ||
+
+  #   @cells["d1"] && @cells["e1"] && @cells["f1"] && @cells["g1"] == "X" ||
+  #   @cells["d2"] && @cells["e2"] && @cells["f2"] && @cells["g2"] == "X" ||
+  #   @cells["d3"] && @cells["e3"] && @cells["f3"] && @cells["g3"] == "X" ||
+  #   @cells["d4"] && @cells["e4"] && @cells["f4"] && @cells["g4"] == "X" ||
+  #   @cells["d5"] && @cells["e5"] && @cells["f5"] && @cells["g5"] == "X" ||
+  #   @cells["d6"] && @cells["e6"] && @cells["f6"] && @cells["g6"] == "X" 
+  # end
+
+  
 
   def diagonal_win?
     @cells["a4"] && @cells["b3"] && @cells["c2"] && @cells["d1"] == "X" ||
