@@ -16,12 +16,10 @@ class Game
         puts "#{@name} pick a column A to G to place your chip"
         given = gets.chomp.downcase
         computer_choice = [*"a".."g"].sample
-        
         until @board.valid_placement?(given) == true
           puts 'INVALID COLUMN. TRY AGAIN.'
           given = gets.chomp.downcase
         end
-        
         if @board.valid_placement?(given) == true
           @board.player_move(given)
           counter = 0
@@ -39,11 +37,9 @@ class Game
         end
       end
       if @board.board_empty? == false
-        sleep 1
         p '=================================='
         p '  Game Over. There is no winner.  '
         p '=================================='
-        sleep 1
       end
     end
 end
