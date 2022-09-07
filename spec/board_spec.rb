@@ -16,6 +16,7 @@ RSpec.describe Board do
     end
   end
   
+
   describe 'board functions' do 
     it 'can render a new board' do 
       board = Board.new
@@ -46,10 +47,10 @@ RSpec.describe Board do
     it 'stops the game when board is full' do
       board = Board.new
       expect(board.board_empty?).to eq true
+
       # expect when board is full game will stop
       # no valid columns available; i.e. the game board is full. 
       # In this case, the game is a draw, an endgame condition.
-    end
 
     xit 'verifies the column exists' do
       board = Board.new      
@@ -70,7 +71,6 @@ RSpec.describe Board do
 
     xit 'can verify a valid placement on baord' do
       board = Board.new      
-
       5.times do
       board.player_move("a")
       end
@@ -81,28 +81,34 @@ RSpec.describe Board do
 
     xit 'can identify a vertical win' do
       board = Board.new
-      # expect(board.player_win).to eq false
-      
+      expect(board.player_win?).to eq false
       3.times do
       board.player_move("a")
       end 
       board.player_move("a")
       board.player_move("a")
-
-      # expect(board.player_win?).to eq true
+      expect(board.player_win?).to eq true
     end
 
     it 'can identify wins' do
       board = Board.new
-
       expect(board.vertical_win?('a')).to eq false
-      
       4.times do
       board.player_move("a")
       end 
-  
       expect(board.vertical_win?('a')).to eq true
-
     end
   end 
 end 
+
+
+    
+  # describe '#column_available?' do
+  #   it 'checks if a column is available to place piece into' do
+  #     board = Board.new
+  #     board.player_move(a)
+  #     expect(column_available?(a)).to eq (true)
+  #   end
+  # end
+end
+

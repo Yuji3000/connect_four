@@ -10,6 +10,7 @@ attr_reader :cells, :count
     @count = 0
   end 
   
+
   def board_cells
     @numbers.each do |number|
       @letters.each do |letter|
@@ -29,6 +30,7 @@ attr_reader :cells, :count
     return render
   end
   
+
   def player_move(given) #human player
     cell_arr = @cells.sort.reverse  
     cell_arr.find do |cell| 
@@ -37,6 +39,27 @@ attr_reader :cells, :count
     @cells = cell_arr.to_h
   end
   
+  def column_exists?(given)
+    [*"a".."g"].include?(given) 
+  end
+  
+
+  def valid_placement?(given)
+    column_exists?(given)
+    column_available?(given)
+  end 
+
+
+  def column_available?(given)
+    "a1".include?(given) && @cells["a1"] == "." ||
+    "b1".include?(given) && @cells["b1"] == "." ||
+    "c1".include?(given) && @cells["c1"] == "." ||
+    "d1".include?(given) && @cells["d1"] == "." ||
+    "e1".include?(given) && @cells["e1"] == "." ||
+    "f1".include?(given) && @cells["f1"] == "." ||
+    "g1".include?(given) && @cells["g1"] == "."
+  end
+
   def board_empty?
     @cells.values.any?('.')
   end
@@ -50,10 +73,20 @@ attr_reader :cells, :count
     @cells = cell_arr.to_h
   end
 
+
   def vertical_win?(given)
     consecutive_vertical(given)
     @count == 4
   end 
+
+  def winner
+    @cells.sort.each do |cell|
+      if cell[0][0] != unique && cell[0][1] == count+1 && cell[1] == "x" 
+        binding.pry
+        puts winner
+      end
+    end
+  end
 
   def consecutive_vertical(given)
     tester = @cells.find_all do |k, v|
@@ -72,29 +105,21 @@ attr_reader :cells, :count
     end    
   end
 
-  def horozontal_win?
-    @cells["a1"] && @cells["b1"] && @cells["c1"] && @cells["d1"] == "X" ||
-    @cells["a2"] && @cells["b2"] && @cells["c2"] && @cells["d2"] == "X" ||
-    @cells["a3"] && @cells["b3"] && @cells["c3"] && @cells["d3"] == "X" ||
-    @cells["a4"] && @cells["b4"] && @cells["c4"] && @cells["d4"] == "X" ||
-    @cells["a5"] && @cells["b5"] && @cells["c5"] && @cells["d5"] == "X" ||
-    @cells["a6"] && @cells["b6"] && @cells["c6"] && @cells["d6"] == "X" ||
-    @cells["b1"] && @cells["c1"] && @cells["d1"] && @cells["e1"] == "X" ||
-    @cells["b1"] && @cells["c1"] && @cells["d1"] && @cells["e1"] == "X" ||
-    @cells["b1"] && @cells["c1"] && @cells["d1"] && @cells["e1"] == "X" ||
-    @cells["b1"] && @cells["c1"] && @cells["d1"] && @cells["e1"] == "X" ||
-    @cells["b1"] && @cells["c1"] && @cells["d1"] && @cells["e1"] == "X" ||
-    @cells["b1"] && @cells["c1"] && @cells["d1"] && @cells["e1"] == "X" ||
-    @cells["b1"] && @cells["c1"] && @cells["d1"] && @cells["e1"] == "X" ||
 
-    
 
-    @cells["a1"] + @cells["b1"] + @cells["c1"] + @cells["d1"] + @cells["e1"] + @cells["f1"] + @cells["g1"] + " \n" +
-    @cells["a2"] + @cells["b2"] + @cells["c2"] + @cells["d2"] + @cells["e2"] + @cells["f2"] + @cells["g2"] + " \n" +
-    @cells["a3"] + @cells["b3"] + @cells["c3"] + @cells["d3"] + @cells["e3"] + @cells["f3"] + @cells["g3"] + " \n" +
-    @cells["a4"] + @cells["b4"] + @cells["c4"] + @cells["d4"] + @cells["e4"] + @cells["f4"] + @cells["g4"] + " \n" +
-    @cells["a5"] + @cells["b5"] + @cells["c5"] + @cells["d5"] + @cells["e5"] + @cells["f5"] + @cells["g5"] + " \n" +
-    @cells["a6"] + @cells["b6"] + @cells["c6"] + @cells["d6"] + @cells["e6"] + @cells["f6"] + @cells["g6"]
-    
-  end
-end
+  # @cells.sort.each do |cell|
+  #   cell[0][0] != unique && cell[0][1] == count+1 && cell[1] == "x" #
+  #   cell[0][0] == letter_count += 1  && cell[0][1] == count+1 && cell[1] == "x" #
+
+
+  
+  # @cells.sort[0][0][0] #letter 
+  # @cells.sort[0][0][1] #number
+  
+  # @cells do |cell|q
+  #   @letters.each do |letter|
+  #   shovel frist 6 elements into array
+
+  # check 4* cells[1] for X or o 
+
+

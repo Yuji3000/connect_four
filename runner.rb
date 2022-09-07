@@ -21,5 +21,4 @@ p 'Enter p to play. Enter q to quit.'
     break
   end
 
-
 end
