@@ -29,7 +29,7 @@ attr_reader :cells, :count
     return render
   end
   
-  def player_move(given) #human player
+  def player_move(given) 
     cell_arr = @cells.sort.reverse  
     cell_arr.find do |cell| 
       cell[1] = 'X' if cell[0].include?(given) && cell[1] == '.'
