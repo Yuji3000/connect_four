@@ -6,4 +6,4 @@ RSpec.describe Player do
       player1 = Player.new("Kristen")
       expect(player1).to be_an_instance_of(Player)
     end
-end
+endb
