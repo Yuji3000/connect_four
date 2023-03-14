@@ -1,5 +1,6 @@
 require './lib/board'
 require 'pry'
+require 'rspec'
 
 RSpec.describe Board do
   describe '#initialize_board' do
@@ -80,12 +81,12 @@ RSpec.describe Board do
     it 'identifies a win' do
       board = Board.new
       3.times do
-      board.player_move('a')
+        board.player_move('a')
       end 
       expect(board.player_win?('a')).to eq false
       board.player_move('a')
-      board.player_move('a')
       expect(board.player_win?('a')).to eq true
+      # board.player_move('a')
     end
   end
   
@@ -95,7 +96,7 @@ RSpec.describe Board do
       board = Board.new
       expect(board.player_vertical_win?('a')).to eq false
       4.times do
-      board.player_move("a")
+        board.player_move("a")
       end 
       expect(board.player_vertical_win?('a')).to eq true
     end
@@ -116,19 +117,19 @@ RSpec.describe Board do
     it 'can identify wins diagnolly' do
       board = Board.new
       4.times do
-      board.player_move("g")
+        board.player_move("g")
       end
       expect(board.player_diagonal_win?("g")).to eq false
       3.times do
-      board.player_move("f")
+        board.player_move("f")
       end
       expect(board.player_diagonal_win?("f")).to eq false
       2.times do
-      board.player_move("e")
+        board.player_move("e")
       end
       expect(board.player_diagonal_win?("e")).to eq false
       1.times do
-      board.player_move("d")
+        board.player_move("d")
       end
       expect(board.player_diagonal_win?("d")).to eq true
     end

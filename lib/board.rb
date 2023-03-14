@@ -84,7 +84,9 @@ attr_reader :cells, :count
   def player_vertical_win?(given)
     @count = 0
     player_consecutive_vertical(given)
-    @count == 4
+    if @count == 4 
+      return true
+    end
   end 
 
   def player_consecutive_vertical(given)
@@ -97,7 +99,8 @@ attr_reader :cells, :count
       else
         @count = 0
       end 
-      if @count == 4
+      if @count == 4 
+        return true
         break
       end
     end    
@@ -106,7 +109,10 @@ attr_reader :cells, :count
   def computer_vertical_win?(computer_choice)
     @count = 0
     computer_consecutive_vertical(computer_choice)
-    @count == 4
+    if @count == 4 
+      return true
+      break
+    end
   end 
 
   def computer_consecutive_vertical(computer_choice)
@@ -119,7 +125,8 @@ attr_reader :cells, :count
       else
         @count = 0
       end 
-      if @count == 4
+      if @count == 4 
+        return true
         break
       end
     end    
@@ -128,7 +135,10 @@ attr_reader :cells, :count
   def player_horizontal_win?(given)
     @count = 0
     player_consecutive_horizontal(given)
-    @count == 4
+    if @count == 4 
+      return true
+      break
+    end
   end
 
   def player_consecutive_horizontal(given)
@@ -143,7 +153,7 @@ attr_reader :cells, :count
         if cell[1] == "X"
           @count = @count += 1 
           if @count == 4
-            return
+            return true
           end
         else
           @count = 0
@@ -172,6 +182,7 @@ attr_reader :cells, :count
         @count = 0
       end 
       if @count == 4
+        return true
         break
       end
     end    
@@ -190,18 +201,15 @@ attr_reader :cells, :count
     @cells["d4"] == "X" && @cells["e3"] == "X" && @cells["f2"] == "X" && @cells["g1"] == "X" ||
     @cells["d5"] == "X" && @cells["e4"] == "X" && @cells["f3"] == "X" && @cells["g2"] == "X" ||
     @cells["d6"] == "X" && @cells["e5"] == "X" && @cells["f4"] == "X" && @cells["g3"] == "X" ||
-    @cells["c4"] == "X" && @cells["d3"] == "X" && @cells["e2"] == "X" && @cells["f1"] == "X" ||
-    @cells["c5"] == "X" && @cells["d4"] == "X" && @cells["e3"] == "X" && @cells["f2"] == "X" ||
-    @cells["c6"] == "X" && @cells["d5"] == "X" && @cells["e4"] == "X" && @cells["f3"] == "X" ||
     @cells["a1"] == "X" && @cells["b2"] == "X" && @cells["c3"] == "X" && @cells["d4"] == "X" ||
     @cells["a2"] == "X" && @cells["b3"] == "X" && @cells["c4"] == "X" && @cells["d5"] == "X" ||
     @cells["a3"] == "X" && @cells["b4"] == "X" && @cells["c5"] == "X" && @cells["d6"] == "X" ||
     @cells["b1"] == "X" && @cells["c2"] == "X" && @cells["d3"] == "X" && @cells["e4"] == "X" ||
     @cells["b2"] == "X" && @cells["c3"] == "X" && @cells["d4"] == "X" && @cells["e5"] == "X" ||
     @cells["b3"] == "X" && @cells["c4"] == "X" && @cells["d5"] == "X" && @cells["e6"] == "X" ||
-    @cells["c1"] == "X" && @cells["d2"] == "X" && @cells["d3"] == "X" && @cells["e4"] == "X" ||
-    @cells["c2"] == "X" && @cells["d3"] == "X" && @cells["d4"] == "X" && @cells["e5"] == "X" ||
-    @cells["c3"] == "X" && @cells["d4"] == "X" && @cells["d5"] == "X" && @cells["e6"] == "X" ||   
+    @cells["c1"] == "X" && @cells["d2"] == "X" && @cells["e3"] == "X" && @cells["f4"] == "X" ||
+    @cells["c2"] == "X" && @cells["d3"] == "X" && @cells["e4"] == "X" && @cells["f5"] == "X" ||
+    @cells["c3"] == "X" && @cells["d4"] == "X" && @cells["e5"] == "X" && @cells["f6"] == "X" ||   
     @cells["d1"] == "X" && @cells["e2"] == "X" && @cells["f3"] == "X" && @cells["g4"] == "X" ||
     @cells["d2"] == "X" && @cells["e3"] == "X" && @cells["f4"] == "X" && @cells["g5"] == "X" ||
     @cells["d3"] == "X" && @cells["e4"] == "X" && @cells["f5"] == "X" && @cells["g6"] == "X"
@@ -219,10 +227,7 @@ attr_reader :cells, :count
     @cells["c6"] == "O" && @cells["d5"] == "O" && @cells["e4"] == "O" && @cells["f3"] == "O" ||
     @cells["d4"] == "O" && @cells["e3"] == "O" && @cells["f2"] == "O" && @cells["g1"] == "O" ||
     @cells["d5"] == "O" && @cells["e4"] == "O" && @cells["f3"] == "O" && @cells["g2"] == "O" ||
-    @cells["d6"] == "O" && @cells["e5"] == "O" && @cells["f4"] == "O" && @cells["g3"] == "O" ||    
-    @cells["c4"] == "O" && @cells["d3"] == "O" && @cells["e2"] == "O" && @cells["f1"] == "O" ||
-    @cells["c5"] == "O" && @cells["d4"] == "O" && @cells["e3"] == "O" && @cells["f2"] == "O" ||
-    @cells["c6"] == "O" && @cells["d5"] == "O" && @cells["e4"] == "O" && @cells["f3"] == "O" ||   
+    @cells["d6"] == "O" && @cells["e5"] == "O" && @cells["f4"] == "O" && @cells["g3"] == "O" ||      
     @cells["a1"] == "O" && @cells["b2"] == "O" && @cells["c3"] == "O" && @cells["d4"] == "O" ||
     @cells["a2"] == "O" && @cells["b3"] == "O" && @cells["c4"] == "O" && @cells["d5"] == "O" ||
     @cells["a3"] == "O" && @cells["b4"] == "O" && @cells["c5"] == "O" && @cells["d6"] == "O" ||
