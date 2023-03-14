@@ -202,9 +202,9 @@ attr_reader :cells, :count
     @cells["c1"] == "X" && @cells["d2"] == "X" && @cells["d3"] == "X" && @cells["e4"] == "X" ||
     @cells["c2"] == "X" && @cells["d3"] == "X" && @cells["d4"] == "X" && @cells["e5"] == "X" ||
     @cells["c3"] == "X" && @cells["d4"] == "X" && @cells["d5"] == "X" && @cells["e6"] == "X" ||   
-    @cells["d1"] == "X" && @cells["e2"] == "X" && @cells["f3" == "X"] && @cells["g4"] == "X" ||
-    @cells["d2"] == "X" && @cells["e3"] == "X" && @cells["f4" == "X"] && @cells["g5"] == "X" ||
-    @cells["d3"] == "X" && @cells["e4"] == "X" && @cells["f5" == "X"] && @cells["g6"] == "X"
+    @cells["d1"] == "X" && @cells["e2"] == "X" && @cells["f3"] == "X" && @cells["g4"] == "X" ||
+    @cells["d2"] == "X" && @cells["e3"] == "X" && @cells["f4"] == "X" && @cells["g5"] == "X" ||
+    @cells["d3"] == "X" && @cells["e4"] == "X" && @cells["f5"] == "X" && @cells["g6"] == "X"
   end
 
   def computer_diagonal_win?(computer_choice)
